@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -32,6 +33,13 @@ public class MainActivity extends BridgeActivity {
         
         // Fit the layout content between the status and navigation/system bars
         Window window = getWindow();
+        
+        // Force hardware acceleration on the Window level
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+            WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
+        );
+        
         WindowCompat.setDecorFitsSystemWindows(window, true);
 
         // Force fitsSystemWindows programmatically on root content and WebView views
@@ -124,6 +132,12 @@ public class MainActivity extends BridgeActivity {
 
             // Disable overscroll bubblegum animation on the root WebView
             webView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+            // Force use of modern GPU hardware acceleration layer
+            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+
+            // Enable offscreen pre-rasterization for maximum rendering/scrolling performance
+            webView.getSettings().setOffscreenPreRaster(true);
 
             // Register custom WebViewClient extending Capacitor's BridgeWebViewClient
             webView.setWebViewClient(new BridgeWebViewClient(getBridge()) {

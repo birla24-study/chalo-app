@@ -1,8 +1,29 @@
 apply plugin: 'com.android.application'
 
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
 android {
     namespace = "com.chalo.app"
     compileSdk = rootProject.ext.compileSdkVersion
+    
+    signingConfigs {
+        release {
+            def storeFilePath = localProperties.getProperty('signing.storeFilePath')
+            if (storeFilePath) {
+                storeFile file(storeFilePath)
+                storePassword localProperties.getProperty('signing.storePassword')
+                keyAlias localProperties.getProperty('signing.keyAlias')
+                keyPassword localProperties.getProperty('signing.keyPassword')
+            }
+        }
+    }
+
     defaultConfig {
         applicationId "com.chalo.app"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -18,6 +39,9 @@ android {
     }
     buildTypes {
         release {
+            if (signingConfigs.release.storeFile != null) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
