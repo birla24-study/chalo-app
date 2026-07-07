@@ -2,6 +2,10 @@
   "appId": "com.chalo.app",
   "appName": "chalo-app",
   "webDir": "dist",
+  "server": {
+    "url": "https://chalo.com/app/",
+    "cleartext": true
+  },
   "plugins": {
     "SplashScreen": {
       "launchAutoHide": false
