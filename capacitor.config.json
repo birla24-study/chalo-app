@@ -1,0 +1,10 @@
+{
+  "appId": "com.chalo.app",
+  "appName": "chalo-app",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}

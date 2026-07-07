@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">chalo-app</string>
+    <string name="title_activity_main">chalo-app</string>
+    <string name="package_name">com.chalo.app</string>
+    <string name="custom_url_scheme">com.chalo.app</string>
+</resources>
